@@ -12,8 +12,7 @@ pipeline {
         branches: [[name: '*/tags/*']], 
         doGenerateSubmoduleConfigurations: false, 
         extensions: [[$class: 'CleanCheckout']], 
-        submoduleCfg: [], 
-        userRemoteConfigs: [[credentialsId: '124d20f239154a18e3f01f2130ded282d411a846', url: 'https://github.com/abhijeetmahadikadmaxim/simple-java-maven-app.git']]
+        submoduleCfg: [],
         refspec: ‘+refs/tags/*’:’refs/remotes/origin/tags/*’
         ])
         stage('Build') {
