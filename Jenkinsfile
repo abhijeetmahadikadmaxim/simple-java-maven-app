@@ -13,7 +13,7 @@ pipeline {
       }
     }
 
-    stage('Test') {
+    stage('Test and deploy') {
       post {
         always {
           junit 'target/surefire-reports/*.xml'
@@ -22,15 +22,7 @@ pipeline {
       }
       steps {
         sh 'mvn test'
-      }
-    }
-
-    stage('Deliver for development') {
-      when {
-        branch '*/master'
-      }
-      steps {
-        input 'Finished building the web site? (Click "Proceed" to continue)'
+        input ' Finished using the web site? (Click "Proceed" to continue)'
         sh './jenkins/scripts/deliver.sh'
       }
     }
