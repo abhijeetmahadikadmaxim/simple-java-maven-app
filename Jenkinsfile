@@ -32,26 +32,26 @@ pipeline {
 		])
 	echo "The answer is: ${USER_INPUT}"
 	
-        switch("${USER_INPUT}"){
-		case 'RTB1FR':
-			sh './jenkins/scripts/deliver.sh'
-			break;
-                case 'RTB1SP':
-                        sh './jenkins/scripts/deliver.sh'
-                        break;
+     		switch("${USER_INPUT}"){
+			case 'RTB1FR':
+				sh './jenkins/scripts/deliver.sh'
+				break;
+        	        case 'RTB1SP':
+                       		sh './jenkins/scripts/deliver.sh'
+                	        break;
 
-                case 'RTB3':
-                        sh './jenkins/scripts/deliver.sh'
-                        break;
+                	case 'RTB3':
+                        	sh './jenkins/scripts/deliver.sh'
+                        	break;
 
-                case 'RTB5':
-                        sh './jenkins/scripts/deliver.sh'
-                        break;
+                	case 'RTB5':
+                        	sh './jenkins/scripts/deliver.sh'
+                        	break;
 
-                case 'Abort':
-                        break;
-		default :
-			break;
+                	case 'Abort':
+                        	break;
+			default :
+				break;
 	}	
       }
     }
