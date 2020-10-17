@@ -1,54 +1,42 @@
 pipeline {
-    agent {
-        docker {
-            image 'maven:3-alpine'
-            args '-v /root/.m2:/root/.m2'
-        }
-    }
-environment {
-        CI = 'true'
+  agent {
+    docker {
+      image 'maven:3-alpine'
+      args '-v /root/.m2:/root/.m2'
     }
 
-    stages {
-       
-        stage('Build') {
-            steps {
-                sh 'mvn -B -DskipTests clean package'
-            }
-        }
-        
-        
-        
-        stage('Test') {
-            steps {
-                sh 'mvn test'
-            }
-            post {
-                always {
-                    junit 'target/surefire-reports/*.xml'
-                }
-            }
-        }
-
-	stage('Deliver for development') {
-            when {
-                branch '*/master'
-            }
-            steps {
-                sh './jenkins/scripts/deliver.sh'
-                input message: 'Finished using the web site? (Click "Proceed" to continue)'
-            }
-        }
-        stage('Deploy for production') {
-            when {
-                branch '**/tags/**'
-            }
-            steps {
-                sh './jenkins/scripts/deliver.sh'
-                input message: 'Finished using the web site? (Click "Proceed" to continue)'
-            }
-        }
-
+  }
+  stages {
+    stage('Build') {
+      steps {
+        sh 'mvn -B -DskipTests clean package'
+      }
     }
-    
+
+    stage('Test') {
+      post {
+        always {
+          junit 'target/surefire-reports/*.xml'
+        }
+
+      }
+      steps {
+        sh 'mvn test'
+      }
+    }
+
+    stage('Deliver for development') {
+      when {
+        branch '*/master'
+      }
+      steps {
+        sh './jenkins/scripts/deliver.sh'
+        input 'Finished building the web site? (Click "Proceed" to continue)'
+      }
+    }
+
+  }
+  environment {
+    CI = 'true'
+  }
 }
