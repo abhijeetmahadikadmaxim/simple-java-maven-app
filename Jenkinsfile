@@ -1,4 +1,4 @@
-peline {
+pipeline {
     agent {
         docker {
             image 'maven:3-alpine'
@@ -30,7 +30,7 @@ environment {
             }
         }
 
-stage('Deliver for development') {
+	stage('Deliver for development') {
             when {
                 branch 'development'
             }
