@@ -26,7 +26,7 @@ pipeline {
 	def USER_INPUT = input(
 		message: 'User input required - Some Yes or No question?',
 		parameters: [
-			[class: 'ChoiceParameterDefinition',
+			[$class: 'ChoiceParameterDefinition',
 			 choices: ['RTB1FR','RTB1SP','RTB3','RTB5','Abort'].join('\n'),
 			 name: 'input',
 			 description: 'Menu - select box option']
