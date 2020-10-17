@@ -32,7 +32,7 @@ environment {
 
 	stage('Deliver for development') {
             when {
-                branch '**/tags/**'
+                branch '*/master'
             }
             steps {
                 sh './jenkins/scripts/deliver.sh'
