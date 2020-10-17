@@ -22,6 +22,7 @@ pipeline {
       }
       steps {
         sh 'mvn test'
+	script {
 	def USER_INPUT = input(
 		message: 'User input required - Some Yes or No question?',
 		parameters: [
@@ -30,8 +31,7 @@ pipeline {
 			 name: 'input',
 			 description: 'Menu - select box option']
 		])
-	echo "The answer is: ${USER_INPUT}"
-	
+		echo "The answer is: ${USER_INPUT}"
      		switch("${USER_INPUT}"){
 			case 'RTB1FR':
 				sh './jenkins/scripts/deliver.sh'
@@ -52,7 +52,8 @@ pipeline {
                         	break;
 			default :
 				break;
-	}	
+		}	
+	}
       }
     }
 
