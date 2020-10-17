@@ -6,15 +6,7 @@ pipeline {
         }
     }
     stages {
-        stage('Checkout Admaxim Repo') {
-        checkout([
-        $class: 'GitSCM', 
-        branches: [[name: '*/tags/*']], 
-        doGenerateSubmoduleConfigurations: false, 
-        extensions: [[$class: 'CleanCheckout']], 
-        submoduleCfg: [],
-        refspec: ‘+refs/tags/*’:’refs/remotes/origin/tags/*’
-        ])
+       
         stage('Build') {
             steps {
                 sh 'mvn -B -DskipTests clean package'
