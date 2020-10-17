@@ -30,8 +30,8 @@ pipeline {
         branch '*/master'
       }
       steps {
-        sh './jenkins/scripts/deliver.sh'
         input 'Finished building the web site? (Click "Proceed" to continue)'
+        sh './jenkins/scripts/deliver.sh'
       }
     }
 
