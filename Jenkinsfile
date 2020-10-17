@@ -22,8 +22,37 @@ pipeline {
       }
       steps {
         sh 'mvn test'
-        input ' Finished using the web site? (Click "Proceed" to continue)'
-        sh './jenkins/scripts/deliver.sh'
+	def USER_INPUT = input(
+		message: 'User input required - Some Yes or No question?',
+		parameters: [
+			[class: 'ChoiceParameterDefinition',
+			 choices: ['RTB1FR','RTB1SP','RTB3','RTB5','Abort'].join('\n'),
+			 name: 'input',
+			 description: 'Menu - select box option']
+		])
+	echo "The answer is: ${USER_INPUT}"
+	
+        switch("${USER_INPUT}"){
+		case 'RTB1FR':
+			sh './jenkins/scripts/deliver.sh'
+			break;
+                case 'RTB1SP':
+                        sh './jenkins/scripts/deliver.sh'
+                        break;
+
+                case 'RTB3':
+                        sh './jenkins/scripts/deliver.sh'
+                        break;
+
+                case 'RTB5':
+                        sh './jenkins/scripts/deliver.sh'
+                        break;
+
+                case 'Abort':
+                        break;
+		default :
+			break;
+	}	
       }
     }
 
